@@ -1,10 +1,29 @@
 import numpy as np
+from computeDHT_IVmatrix import compute_DHT_IV_matrix
 
 def proposed_N8():
-    a = 0.4157
-    b = 0.4904
-    c = 0.2778
-    d = 0.0975
+    h = compute_DHT_IV_matrix(8)[0]
+    a, b, c, d = h[0], h[1], h[4], h[5]
+    S = {
+        "S_0": -a + b - c - d,
+        "S_1": -a + b + c - d,
+        "S_2": -b + d,
+        "S_3": -a + b + c + d,
+        "S_4": a + b + c + d,
+        "S_5": -b - d,
+        "S_6": a - b,
+        "S_7": -b - c,
+        "S_8": b,
+        "S_9": -a + b + c + d,
+        "S_10": a + b + c + d,
+        "S_11": -b - d,
+        "S_12": -a + b - c - d,
+        "S_13": -a + b + c - d,
+        "S_14": -b + d,
+        "S_15": a - b,
+        "S_16": -b - c,
+        "S_17": b,
+    }
 
     matrix0 = np.array([
         [1, 0, 0, 0, 0, 0, 0, 0],
@@ -56,25 +75,24 @@ def proposed_N8():
     ])
 
     matrix4 = np.diag([
-        (-c - a - d + b),
-        (c - a - d + b),
-        (d - b),
-        (c - a + d + b),
-        (a + c + d + b),
-        (-d - b),
-        (a - b),
-        (-c - b),
-        (b),
-        (c - a + d + b),
-        (a + c + d + b),
-        (-d - b),
-        (-a - c - d + b),
-        (c - a - d + b),
-        (d - b),
-        (a - b),
-        (-c - b),
-        (b)
-
+        S["S_0"],
+        S["S_1"],
+        S["S_2"],
+        S["S_3"],
+        S["S_4"],
+        S["S_5"],
+        S["S_6"],
+        S["S_7"],
+        S["S_8"],
+        S["S_9"],
+        S["S_10"],
+        S["S_11"],
+        S["S_12"],
+        S["S_13"],
+        S["S_14"],
+        S["S_15"],
+        S["S_16"],
+        S["S_17"]
     ])
 
     matrix5 = np.array([
