@@ -1,13 +1,20 @@
 import numpy as np
+from computeDHT_IVmatrix import compute_DHT_IV_matrix
 
 def proposed_N7():
-    a = 0.4526
-    b = 0.5312
-    c = 0.5045
-    d = 0.3780
-    e = 0.1765
-    f = -0.0598
-    g = -0.2844
+    a, b, c, d, e, f, g = compute_DHT_IV_matrix(7)[0]
+    S = {
+        "S_0": d,
+        "S_1": d,
+        "S_2": (a - b + c + e - f + g) / 6,
+        "S_3": (-b - c - e - f) / 2,
+        "S_4": (a - c - e + g) / 2,
+        "S_5": (-a + b + 2 * c + 2 * e + f - g) / 6,
+        "S_6": (-a - b + c - e + f + g) / 6,
+        "S_7": (-b - c + e + f) / 2,
+        "S_8": (-a - c + e + g) / 2,
+        "S_9": (a + b + 2 * c - 2 * e - f - g) / 6,
+    }
 
     matrix1 = np.array([
         [ 1, 0, 1, 0, 0, 0, 0, 0],
@@ -71,16 +78,16 @@ def proposed_N7():
     ])
     # 4
     matrix7 = np.diag([
-        d,
-        d,
-        (c + a + (-b) + e + g + (-f)) / 6,
-        (-3 * c + 3 * (-b) - 3 * e + 3 * (-f)) / 6,
-        (-3 * c + 3 * a - 3 * e + 3 * g) / 6,
-        (2 * c - a - (-b) + 2 * e - g - (-f)) / 6,
-        (c - a + (-b) - e + g - (-f)) / 6,
-        (-3 * c + 3 * (-b) + 3 * e - 3 * (-f)) / 6,
-        (-3 * c - 3 * a + 3 * e + 3 * g) / 6,
-        (2 * c + a - (-b) - 2 * e - g + (-f)) / 6
+        S["S_0"],
+        S["S_1"],
+        S["S_2"],
+        S["S_3"],
+        S["S_4"],
+        S["S_5"],
+        S["S_6"],
+        S["S_7"],
+        S["S_8"],
+        S["S_9"]
     ])
 
     matrix8 = np.array([

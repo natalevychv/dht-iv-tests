@@ -1,9 +1,15 @@
 import numpy as np
+from computeDHT_IVmatrix import compute_DHT_IV_matrix
 
 def proposed_N6():
-    a = 0.5
-    b = 0.5774
-    c = 0.2887
+    h = compute_DHT_IV_matrix(6)[0]
+    b = h[1]
+    S = {
+        "S_1": b / 2,
+        "S_2": b / 2,
+        "S_3": b / 2,
+        "S_4": b / 2,
+    }
 
     matrix0 = np.array([
         [1, 0, 0, 0, 0, 0],
@@ -55,12 +61,12 @@ def proposed_N6():
     ])
 
     matrix5 = np.diag([
-        a / 2,
-        b / 2,
-        b / 2,
-        b / 2,
-        b / 2,
-        a / 2
+        0.25,
+        S["S_1"],
+        S["S_2"],
+        S["S_3"],
+        S["S_4"],
+        0.25
     ])
 
     matrix6 = np.array([
